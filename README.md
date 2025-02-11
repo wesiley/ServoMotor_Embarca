@@ -85,7 +85,8 @@ https://wokwi.com/projects/422456961770688513
 - fazer o servo motor rotacionar com uma fluidez maior.
   
  ## 🔗 Link do Vídeo de Funcionamento:
-
+ 
+https://drive.google.com/file/d/1__Vb626H9ck2u7czY7PRV_j202_V6hr6/view?usp=sharing
 
  ## Contribuições 🤝
 

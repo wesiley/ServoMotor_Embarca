@@ -1,4 +1,4 @@
-# Projeto controle de servomotor por pwm 🚀
+# Projeto controle de servomotor por pwm 
 
 Esse projeto tem como objetivo controlar o servo motor, primeiro o servo motor começa no ângulo de 180°, depois para 90° e depois 0°, e logo em seguida ele se mantem em um loop infinito onde o servo motor rotacion-se entre 0° e 180°.
 
@@ -35,8 +35,9 @@ Esse projeto tem como objetivo controlar o servo motor, primeiro o servo motor c
 
 ## Funcionamento do Loop Principal 🔄 
 ```
- while (true) {
+  while (true) {
         set_servo_angle(pulse_width); // Define o ângulo atual
+        set_led_brightness(pulse_width); // Ajusta o brilho do LED proporcionalmente
         printf("Pulso: %dµs\n", pulse_width);
 
         pulse_width += step; // Incrementa ou decrementa o pulso
@@ -49,25 +50,29 @@ Esse projeto tem como objetivo controlar o servo motor, primeiro o servo motor c
 
    
   ```
-O loop while (true) garante execução contínua.  O set_serve_angle é para setar o motor nos ângulos 180°, 90° e 0°, if (pulse_width >= 2400 || pulse_width <= 500) é uma condição para quando pulse_width for maior que 2400 e menor que 500, incrementa e decrementa para que ocorra o movimento do motor, sleep_ms(10), uma pequena pausa de 10 milissegundos.
+O loop while (true) garante execução contínua.  O set_serve_angle é para setar o motor nos ângulos 180°, 90° e 0° e o set_led_brightness() altera a intensidade do LED copiando o código utilizado no servomotor para ser mostrado no uso da BitDogLab, if (pulse_width >= 2400 || pulse_width <= 500) é uma condição para quando pulse_width for maior que 2400 e menor que 500, incrementa e decrementa para que ocorra o movimento do motor e a intensidade do led, sleep_ms(10), uma pequena pausa de 10 milissegundos.
 
 ## Configuração do pwm.
 ```
-// Função para configurar o módulo PWM
 void pwm_setup() {
     gpio_set_function(SERVO_PIN, GPIO_FUNC_PWM); // Habilitar o pino GPIO como PWM
+    gpio_set_function(LED_PIN, GPIO_FUNC_PWM); // Habilitar o pino GPIO como PWM
 
-    uint slice = pwm_gpio_to_slice_num(SERVO_PIN); // Obter o canal PWM da GPIO
+    uint slice_servo = pwm_gpio_to_slice_num(SERVO_PIN); // Obter o canal PWM da GPIO do servo
+    uint slice_led = pwm_gpio_to_slice_num(LED_PIN); // Obter o canal PWM da GPIO do LED
 
-    pwm_set_clkdiv(slice, PWM_DIVISER); // Definir o divisor de clock do PWM
-    pwm_set_wrap(slice, WRAP_PERIOD); // Definir o valor de wrap (20ms)
-    pwm_set_enabled(slice, true); // Habilitar o PWM no slice correspondente
+    pwm_set_clkdiv(slice_servo, PWM_DIVISER); // Definir o divisor de clock do PWM para o servo
+    pwm_set_wrap(slice_servo, WRAP_PERIOD); // Definir o valor de wrap (20ms)
+    pwm_set_enabled(slice_servo, true); // Habilitar o PWM no slice correspondente ao servo
+
+    pwm_set_clkdiv(slice_led, PWM_DIVISER); // Definir o divisor de clock do PWM para o LED
+    pwm_set_wrap(slice_led, WRAP_PERIOD); // Definir o valor de wrap (20ms)
+    pwm_set_enabled(slice_led, true); // Habilitar o PWM no slice correspondente ao LED
 }
-
   ```
  gpio_set_function(PWM_motor, GPIO_FUNC_PWM), habilitar o pino GPIO como PWM.   uint slice = pwm_gpio_to_slice_num, obter o canal PWM da GPIO.   pwm_set_clkdiv, define o divisor de clock do PWM.   pwm_set_wrap, definir o valor de wrap.    pwm_set_enabled, habilita o pwm no slice correspondente.
 
-## Reação do LED RGB em relação ao  mesmo código.
+## Reação do LED RGB com o uso do mesmo código do servo motor.
 
 Primeiro o LED RGB na cor azul começa com uma intensidade forte, depois a intensidade diminui pela metade , e depois reduz mais ainda, logo em seguida o Led fica em um loop entre a intensidade mais baixa até a intensidade mais forte, a demosntração acontece no video logo abaixo👇.
  

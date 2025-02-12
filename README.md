@@ -50,7 +50,7 @@ Esse projeto tem como objetivo controlar o servo motor, primeiro o servo motor c
 
    
   ```
-O loop while (true) garante execução contínua.  O set_serve_angle é para setar o motor nos ângulos 180°, 90° e 0° e o set_led_brightness() altera a intensidade do LED copiando o código utilizado no servomotor para ser mostrado no uso da BitDogLab, if (pulse_width >= 2400 || pulse_width <= 500) é uma condição para quando pulse_width for maior que 2400 e menor que 500, incrementa e decrementa para que ocorra o movimento do motor e a intensidade do led, sleep_ms(10), uma pequena pausa de 10 milissegundos.
+O loop while (true) garante execução contínua, o set_serve_angle é para setar o motor nos ângulos 180°, 90° e 0° e o set_led_brightness() altera a intensidade do LED copiando o código utilizado no servomotor para ser mostrado no uso da BitDogLab, if (pulse_width >= 2400 || pulse_width <= 500) é uma condição para quando pulse_width for maior que 2400 e menor que 500, incrementa e decrementa para que ocorra o movimento do motor e a intensidade do led, sleep_ms(10), uma pequena pausa de 10 milissegundos.
 
 ## Configuração do pwm.
 ```
@@ -70,24 +70,20 @@ void pwm_setup() {
     pwm_set_enabled(slice_led, true); // Habilitar o PWM no slice correspondente ao LED
 }
   ```
- gpio_set_function(PWM_motor, GPIO_FUNC_PWM), habilitar o pino GPIO como PWM.   uint slice = pwm_gpio_to_slice_num, obter o canal PWM da GPIO.   pwm_set_clkdiv, define o divisor de clock do PWM.   pwm_set_wrap, definir o valor de wrap.    pwm_set_enabled, habilita o pwm no slice correspondente.
+ gpio_set_function(PWM_motor, GPIO_FUNC_PWM) habilita o pino GPIO como PWM, uint slice = pwm_gpio_to_slice_num obtem o canal PWM da GPIO, pwm_set_clkdiv define o divisor de clock do PWM, pwm_set_wrap define o valor de wrap, pwm_set_enabled habilita o pwm no slice correspondente.
 
 ## Reação do LED RGB com o uso do mesmo código do servo motor.
 
 Primeiro o LED RGB na cor azul começa com uma intensidade forte, depois a intensidade diminui pela metade , e depois reduz mais ainda, logo em seguida o Led fica em um loop entre a intensidade mais baixa até a intensidade mais forte, a demosntração acontece no video logo abaixo👇.
+
+## 🔗 Link do Vídeo de Funcionamento:
+ 
+https://drive.google.com/file/d/1__Vb626H9ck2u7czY7PRV_j202_V6hr6/view?usp=sharing
  
 ## Diagrama de Conexões 💡:
 
 https://wokwi.com/projects/422456961770688513
-
-## Próximo Passos ➡️
-
-- fazer o servo motor rotacionar com uma fluidez maior.
   
- ## 🔗 Link do Vídeo de Funcionamento:
- 
-https://drive.google.com/file/d/1__Vb626H9ck2u7czY7PRV_j202_V6hr6/view?usp=sharing
-
  ## Contribuições 🤝
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
